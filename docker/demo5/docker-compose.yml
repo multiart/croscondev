@@ -1,0 +1,23 @@
+version: '2'
+services:
+  www:
+    image: php:5.6-apache
+    volumes:
+     - ./www:/var/www/html
+    links:
+     - redis
+
+  redis:
+    image: redis
+    
+  haproxy:
+    image: dockercloud/haproxy
+    links:
+     - www
+    ports:
+     - 80:80
+     - 1936:1936
+    environment:
+     - STATS_AUTH="admin:password"
+    volumes:
+     - /var/run/docker.sock:/var/run/docker.sock

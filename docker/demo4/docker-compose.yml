@@ -1,0 +1,11 @@
+www:
+ image: php:5.6-apache
+ volumes:
+  - ./www:/var/www/html
+ ports:
+  - 8081:80
+ links:
+  - redis
+
+redis:
+  image: redis
